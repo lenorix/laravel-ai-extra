@@ -7,24 +7,14 @@ use MalteKuhr\LaravelGPT\Models\ChatMessage;
 
 /**
  * Extra methods for maltekuhr/laravel-gpt `GPTChat`.
- *
- * @package Lenorix\LaravelAiExtra\Traits
  */
 trait ChatExtra
 {
-    /**
-     * @param string $message
-     * @return static
-     */
     public function addAssistantMessage(string $message): static
     {
         return $this->addMessage(new ChatMessage(ChatRole::ASSISTANT, content: $message));
     }
 
-    /**
-     * @param string $message
-     * @return static
-     */
     public function addUserMessage(string $message): static
     {
         return $this->addMessage(new ChatMessage(ChatRole::USER, content: $message));
