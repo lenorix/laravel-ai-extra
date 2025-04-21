@@ -17,9 +17,9 @@ class LaravelAiExtraServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laravel-ai-extra')
-            ->hasConfigFile()
+            /*->hasConfigFile()
             ->hasViews()
             ->hasMigration('create_laravel_ai_extra_table')
-            ->hasCommand(LaravelAiExtraCommand::class);
+            ->hasCommand(LaravelAiExtraCommand::class)*/;
     }
 }
