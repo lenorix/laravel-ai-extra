@@ -31,4 +31,11 @@ trait ChatExtra
             return $message->role === ChatRole::USER || $message->role === ChatRole::ASSISTANT;
         });
     }
+
+    public function clearMessages(): static
+    {
+        $this->messages = [];
+
+        return $this;
+    }
 }
