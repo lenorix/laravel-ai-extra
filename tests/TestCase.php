@@ -3,8 +3,8 @@
 namespace Lenorix\LaravelAiExtra\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Lenorix\LaravelAiExtra\LaravelAiExtraServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {

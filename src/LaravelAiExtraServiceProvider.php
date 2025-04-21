@@ -2,9 +2,9 @@
 
 namespace Lenorix\LaravelAiExtra;
 
+use Lenorix\LaravelAiExtra\Commands\LaravelAiExtraCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Lenorix\LaravelAiExtra\Commands\LaravelAiExtraCommand;
 
 class LaravelAiExtraServiceProvider extends PackageServiceProvider
 {
