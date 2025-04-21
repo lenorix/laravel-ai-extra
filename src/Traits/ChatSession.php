@@ -2,7 +2,7 @@
 
 namespace Lenorix\LaravelAiExtra\Traits;
 
-trait ChatInSession
+trait ChatSession
 {
     protected function getSessionKey(): string
     {
