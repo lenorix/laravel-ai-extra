@@ -8,9 +8,6 @@ trait PromptFile
 {
     /**
      * Load a prompt file from the resources/prompts directory.
-     *
-     * @param string $name
-     * @return string
      */
     public function loadPrompt(string $name): string
     {
