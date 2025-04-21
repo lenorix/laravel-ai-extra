@@ -1,7 +1,8 @@
 <?php
 
 it('can save and load', function () {
-    $oldAiChat = new class() {
+    $oldAiChat = new class
+    {
         use Lenorix\LaravelAiExtra\Traits\ChatSession {
             getSessionKey as getSessionKeyFromTrait;
         }
@@ -19,11 +20,12 @@ it('can save and load', function () {
     $oldAiChat->saveChat();
     unset($oldAiChat);
 
-    $newAiChat = new class() {
-        use MalteKuhr\LaravelGPT\Concerns\HasChat;
+    $newAiChat = new class
+    {
         use Lenorix\LaravelAiExtra\Traits\ChatSession {
             getSessionKey as getSessionKeyFromTrait;
         }
+        use MalteKuhr\LaravelGPT\Concerns\HasChat;
         use MalteKuhr\LaravelGPT\Concerns\HasChat;
 
         public function getSessionKey(): string
