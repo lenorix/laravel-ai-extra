@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelAiExtra\Traits;
+namespace Lenorix\LaravelAiExtra\Traits;
 
 use Illuminate\Support\Facades\Blade;
 
