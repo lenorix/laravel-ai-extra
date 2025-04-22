@@ -11,6 +11,6 @@ trait PromptFile
      */
     protected function loadPrompt(string $name): string
     {
-        return File::get(resource_path("prompts/{$name}.txt"));
+        return File::get(resource_path("prompts/{$name}.md"));
     }
 }
