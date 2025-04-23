@@ -2,8 +2,6 @@
 
 namespace Lenorix\LaravelAiExtra\Traits;
 
-use MalteKuhr\LaravelGPT\Models\ChatMessage;
-
 /*
  * Methods to control context limits for maltekuhr/laravel-gpt `GPTChat`.
  *
@@ -31,12 +29,13 @@ trait ChatLimits
 
         $total = 0;
         $newMessages = [];
-        while (!empty($this->messages)) {
+        while (! empty($this->messages)) {
             $message = array_pop($this->messages);
             $encoded = json_encode($message);
 
             if ($encoded === false) {
                 array_unshift($newMessages, $message);
+
                 continue;
             }
 
