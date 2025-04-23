@@ -28,15 +28,29 @@ trait ChatLimits
         if (count($this->messages) > $this->maxMessages) {
             $this->messages = array_slice($this->messages, -$this->maxMessages);
         }
-        $this->messages = array_filter($this->messages, function (ChatMessage $message) {
-            return $this->isMessageUnderLimit($message);
-        });
-    }
 
-    protected function isMessageUnderLimit(ChatMessage $message): bool
-    {
-        $encodedMessage = json_encode($message);
+        $total = 0;
+        $newMessages = [];
+        while (!empty($this->messages)) {
+            $message = array_pop($this->messages);
+            $encoded = json_encode($message);
 
-        return $encodedMessage !== false && strlen($encodedMessage) <= $this->maxMessageSize;
+            if ($encoded === false) {
+                array_unshift($newMessages, $message);
+                continue;
+            }
+
+            $size = strlen($encoded);
+            if ($size > $this->maxMessageSize) {
+                continue;
+            }
+
+            if ($total + $size > $this->maxTotalSize) {
+                break;
+            }
+            array_unshift($newMessages, $message);
+            $total += $size;
+        }
+        $this->messages = $newMessages;
     }
 }
