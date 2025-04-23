@@ -2,6 +2,11 @@
 
 namespace Lenorix\LaravelAiExtra\Traits;
 
+/*
+ * Methods to control context limits for maltekuhr/laravel-gpt `GPTChat`.
+ *
+ * This expects the class has a `messages` property.
+ */
 trait ChatLimits
 {
     /**

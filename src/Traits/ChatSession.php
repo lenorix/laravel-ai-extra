@@ -2,6 +2,11 @@
 
 namespace Lenorix\LaravelAiExtra\Traits;
 
+/**
+ * Methods to save and load chat messages to/from the session.
+ *
+ * This expects the class has a `messages` property.
+ */
 trait ChatSession
 {
     protected function getSessionKey(): string

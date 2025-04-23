@@ -7,6 +7,9 @@ use MalteKuhr\LaravelGPT\Models\ChatMessage;
 
 /**
  * Extra methods for maltekuhr/laravel-gpt `GPTChat`.
+ * 
+ * This expects the class has a `messages` property and an `addMessage` method,
+ *  which is the case for `GPTChat` or using the `HasChat` trait.
  */
 trait ChatExtra
 {
