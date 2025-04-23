@@ -16,7 +16,6 @@ trait PromptTemplate
      *
      * @param  string  $name  The name of the prompt file (without extension).
      * @param  array  $data  The data to pass to the prompt.
-     * @return string
      */
     protected function renderPrompt(string $name, array $data): string
     {
