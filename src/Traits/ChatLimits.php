@@ -2,7 +2,6 @@
 
 namespace Lenorix\LaravelAiExtra\Traits;
 
-use MalteKuhr\LaravelGPT\Enums\ChatRole;
 use MalteKuhr\LaravelGPT\Models\ChatMessage;
 
 /*
@@ -16,10 +15,12 @@ trait ChatLimits
      * The maximum size of a message in bytes.
      */
     protected int $maxMessageSize = 5_000;
+
     /**
      * The maximum size of all messages in bytes.
      */
     protected int $maxTotalSize = 110_000;
+
     protected int $maxMessages = 200;
 
     protected function ensureMessagesLimit(): void
@@ -35,6 +36,7 @@ trait ChatLimits
     protected function isMessageUnderLimit(ChatMessage $message): bool
     {
         $encodedMessage = json_encode($message);
+
         return $encodedMessage !== false && strlen($encodedMessage) <= $this->maxMessageSize;
     }
 }
