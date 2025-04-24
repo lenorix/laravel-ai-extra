@@ -23,42 +23,44 @@ trait ChatLimits
 
     protected function ensureMessagesLimit(): void
     {
-        if (count($this->messages) > $this->maxMessages) {
-            $this->messages = array_slice($this->messages, -$this->maxMessages);
-        }
-
-        $total = 0;
+        $totalMessages = 0;
+        $totalSize = 0;
         $newMessages = [];
-        while (! empty($this->messages)) {
+        while ($totalMessages < $this->maxMessages && !empty($this->messages)) {
             $message = array_pop($this->messages);
+
+            if (is_string($message->content) && strlen($message->content) > $this->maxMessageSize) {
+                unset($message);
+                continue;
+            }
+
             $encoded = json_encode($message);
-
             if ($encoded === false) {
-                array_unshift($newMessages, $message);
+                $newMessages[] = $message;
+                $totalMessages += 1;
                 unset($encoded);
-
                 continue;
             }
 
             $size = strlen($encoded);
             unset($encoded);
             if ($size > $this->maxMessageSize) {
-                unset($message);
-
+                unset($size, $message);
                 continue;
             }
 
-            if ($total + $size > $this->maxTotalSize) {
-                unset($message);
+            if ($totalSize + $size > $this->maxTotalSize) {
+                unset($size, $message);
                 break;
             }
 
-            array_unshift($newMessages, $message);
-            $total += $size;
+            $newMessages[] = $message;
+            $totalMessages += 1;
+            $totalSize += $size;
             unset($size, $message);
         }
 
-        $this->messages = $newMessages;
-        unset($newMessages, $total);
+        $this->messages = array_reverse($newMessages);
+        unset($newMessages, $totalSize);
     }
 }
