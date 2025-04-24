@@ -7,9 +7,7 @@ use MalteKuhr\LaravelGPT\Models\ChatMessage;
 it('limits messages by count', function () {
     $chat = new class
     {
-        use ChatLimits {
-            ensureMessagesLimit as public;
-        }
+        use ChatLimits { ensureMessagesLimit as public; }
 
         public array $messages = [];
 
@@ -88,15 +86,12 @@ it('push memory usage to the limit', function () {
         public function __construct()
         {
             for ($i = 1; $i <= $this->maxMessages * 2; $i++) {
-                $this->messages[] = new ChatMessage(ChatRole::USER, content: str_repeat('x', $this->maxMessageSize * 20));
+                $this->messages[] = new ChatMessage(ChatRole::USER, content: str_repeat('x', $this->maxMessageSize * 30));
             }
-            for ($i = 1; $i <= $this->maxMessages; $i++) {
-                $this->messages[] = new ChatMessage(ChatRole::USER, content: str_repeat('x', $this->maxMessageSize / 2));
-                $this->messages[] = new ChatMessage(ChatRole::USER, content: str_repeat('x', $this->maxMessageSize / 2));
+            for ($i = 1; $i <= $this->maxMessages + 100; $i++) {
+                $this->messages[] = new ChatMessage(ChatRole::USER, content: str_repeat('x', $this->maxMessageSize - 300));
             }
-            for ($i = 1; $i <= 5; $i++) {
-                $this->messages[] = new ChatMessage(ChatRole::USER, content: str_repeat('x', $this->maxMessageSize * 2));
-            }
+            $this->messages[] = new ChatMessage(ChatRole::USER, content: str_repeat('x', $this->maxMessageSize * 30));
         }
     };
 
@@ -105,6 +100,7 @@ it('push memory usage to the limit', function () {
     $memoryAfter = memory_get_usage();
 
     expect($memoryAfter)->toBeLessThan($memoryBefore);
+    expect(count($chat->messages))->toBeGreaterThan(0);
 
     $memoryBefore = memory_get_usage();
     for ($i = 1; $i <= 100; $i++) {
