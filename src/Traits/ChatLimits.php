@@ -36,6 +36,7 @@ trait ChatLimits
             if ($encoded === false) {
                 array_unshift($newMessages, $message);
                 unset($encoded);
+
                 continue;
             }
 
@@ -43,6 +44,7 @@ trait ChatLimits
             unset($encoded);
             if ($size > $this->maxMessageSize) {
                 unset($message);
+
                 continue;
             }
 
