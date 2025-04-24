@@ -87,8 +87,8 @@ it('push memory usage to the limit', function () {
 
         public function __construct()
         {
-            for ($i = 1; $i <= $this->maxMessages; $i++) {
-                $this->messages[] = new ChatMessage(ChatRole::USER, content: str_repeat('x', $this->maxMessageSize));
+            for ($i = 1; $i <= $this->maxMessages * 2; $i++) {
+                $this->messages[] = new ChatMessage(ChatRole::USER, content: str_repeat('x', $this->maxMessageSize * 20));
             }
             for ($i = 1; $i <= $this->maxMessages; $i++) {
                 $this->messages[] = new ChatMessage(ChatRole::USER, content: str_repeat('x', $this->maxMessageSize / 2));
