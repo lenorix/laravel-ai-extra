@@ -89,7 +89,13 @@ it('push memory usage to the limit', function () {
         {
             for ($i = 1; $i <= $this->maxMessages; $i++) {
                 $this->messages[] = new ChatMessage(ChatRole::USER, content: str_repeat('x', $this->maxMessageSize));
+            }
+            for ($i = 1; $i <= $this->maxMessages; $i++) {
                 $this->messages[] = new ChatMessage(ChatRole::USER, content: str_repeat('x', $this->maxMessageSize / 2));
+                $this->messages[] = new ChatMessage(ChatRole::USER, content: str_repeat('x', $this->maxMessageSize / 2));
+            }
+            for ($i = 1; $i <= 5; $i++) {
+                $this->messages[] = new ChatMessage(ChatRole::USER, content: str_repeat('x', $this->maxMessageSize * 2));
             }
         }
     };
@@ -99,4 +105,12 @@ it('push memory usage to the limit', function () {
     $memoryAfter = memory_get_usage();
 
     expect($memoryAfter)->toBeLessThan($memoryBefore);
+
+    $memoryBefore = memory_get_usage();
+    for ($i = 1; $i <= 100; $i++) {
+        $chat->ensureMessagesLimit();
+    }
+    $memoryAfter = memory_get_usage();
+
+    expect($memoryAfter)->toBeLessThanOrEqual($memoryBefore);
 });
