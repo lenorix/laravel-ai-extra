@@ -79,9 +79,12 @@ it('limits messages by total size', function () {
 });
 
 it('push memory usage to the limit', function () {
-    $chat = new class {
+    $chat = new class
+    {
         use ChatLimits { ensureMessagesLimit as public; }
+
         public array $messages = [];
+
         public function __construct()
         {
             for ($i = 1; $i <= $this->maxMessages; $i++) {
