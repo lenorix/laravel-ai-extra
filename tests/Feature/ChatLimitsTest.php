@@ -1,15 +1,18 @@
 <?php
 
 use Lenorix\LaravelAiExtra\Traits\ChatLimits;
-use MalteKuhr\LaravelGPT\Models\ChatMessage;
 use MalteKuhr\LaravelGPT\Enums\ChatRole;
+use MalteKuhr\LaravelGPT\Models\ChatMessage;
 
 it('limits messages by count', function () {
-    $chat = new class() {
+    $chat = new class
+    {
         use ChatLimits {
             ensureMessagesLimit as public;
         }
+
         public array $messages = [];
+
         public function __construct()
         {
             $this->maxMessages = 3;
@@ -25,9 +28,12 @@ it('limits messages by count', function () {
 });
 
 it('limits messages by size', function () {
-    $chat = new class {
+    $chat = new class
+    {
         use ChatLimits { ensureMessagesLimit as public; }
+
         public array $messages = [];
+
         public function __construct()
         {
             $keep1 = new ChatMessage(ChatRole::USER, str_repeat('x', 3));
@@ -47,11 +53,14 @@ it('limits messages by size', function () {
 });
 
 it('limits messages by total size', function () {
-    $chat = new class {
+    $chat = new class
+    {
         use ChatLimits {
             ensureMessagesLimit as public;
         }
+
         public array $messages = [];
+
         public function __construct()
         {
             $keep = new ChatMessage(ChatRole::USER, content: 'bbbbbb');
