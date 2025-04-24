@@ -77,3 +77,23 @@ it('limits messages by total size', function () {
     expect(count($chat->messages))->toBe(1);
     expect($chat->messages[0]->content)->toBe('bbbbbb');
 });
+
+it('push memory usage to the limit', function () {
+    $chat = new class {
+        use ChatLimits { ensureMessagesLimit as public; }
+        public array $messages = [];
+        public function __construct()
+        {
+            for ($i = 1; $i <= $this->maxMessages; $i++) {
+                $this->messages[] = new ChatMessage(ChatRole::USER, content: str_repeat('x', $this->maxMessageSize));
+                $this->messages[] = new ChatMessage(ChatRole::USER, content: str_repeat('x', $this->maxMessageSize / 2));
+            }
+        }
+    };
+
+    $memoryBefore = memory_get_usage();
+    $chat->ensureMessagesLimit();
+    $memoryAfter = memory_get_usage();
+
+    expect($memoryAfter)->toBeLessThan($memoryBefore);
+});
