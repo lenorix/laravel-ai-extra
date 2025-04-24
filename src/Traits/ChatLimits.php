@@ -26,11 +26,12 @@ trait ChatLimits
         $totalMessages = 0;
         $totalSize = 0;
         $newMessages = [];
-        while ($totalMessages < $this->maxMessages && !empty($this->messages)) {
+        while ($totalMessages < $this->maxMessages && ! empty($this->messages)) {
             $message = array_pop($this->messages);
 
             if (is_string($message->content) && strlen($message->content) > $this->maxMessageSize) {
                 unset($message);
+
                 continue;
             }
 
@@ -39,6 +40,7 @@ trait ChatLimits
                 $newMessages[] = $message;
                 $totalMessages += 1;
                 unset($encoded);
+
                 continue;
             }
 
@@ -46,6 +48,7 @@ trait ChatLimits
             unset($encoded);
             if ($size > $this->maxMessageSize) {
                 unset($size, $message);
+
                 continue;
             }
 
