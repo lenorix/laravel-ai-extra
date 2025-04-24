@@ -23,6 +23,11 @@ trait ChatExtra
         return $this->addMessage(new ChatMessage(ChatRole::USER, content: $message));
     }
 
+    public function popLatestMessage(): ?ChatMessage
+    {
+        return array_pop($this->messages);
+    }
+
     /**
      * Get only user and assistant messages.
      *
