@@ -23,10 +23,9 @@ trait ChatLimits
 
     protected function ensureMessagesLimit(): void
     {
-        $totalMessages = 0;
         $totalSize = 0;
         $newMessages = [];
-        while ($totalMessages < $this->maxMessages && ! empty($this->messages)) {
+        while (count($newMessages) < $this->maxMessages && ! empty($this->messages)) {
             $message = array_pop($this->messages);
 
             if (is_string($message->content) && strlen($message->content) > $this->maxMessageSize) {
@@ -38,7 +37,6 @@ trait ChatLimits
             $encoded = json_encode($message);
             if ($encoded === false) {
                 $newMessages[] = $message;
-                $totalMessages += 1;
                 unset($encoded);
 
                 continue;
@@ -58,7 +56,6 @@ trait ChatLimits
             }
 
             $newMessages[] = $message;
-            $totalMessages += 1;
             $totalSize += $size;
             unset($size, $message);
         }
