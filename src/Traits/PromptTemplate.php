@@ -17,8 +17,12 @@ trait PromptTemplate
      * @param  string  $name  The name of the prompt file (without extension).
      * @param  array  $data  The data to pass to the prompt.
      */
-    protected function renderPrompt(string $name, array $data = []): string
+    protected function renderPrompt(string $name, array $data = [], bool $deleteCached = false): string
     {
-        return Blade::render($this->loadPrompt($name), $data);
+        return Blade::render(
+            $this->loadPrompt($name),
+            $data,
+            deleteCachedView: $deleteCached
+        );
     }
 }
