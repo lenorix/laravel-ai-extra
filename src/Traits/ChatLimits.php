@@ -35,21 +35,28 @@ trait ChatLimits
 
             if ($encoded === false) {
                 array_unshift($newMessages, $message);
-
+                unset($encoded);
                 continue;
             }
 
             $size = strlen($encoded);
+            unset($encoded);
             if ($size > $this->maxMessageSize) {
+                unset($message);
                 continue;
             }
 
             if ($total + $size > $this->maxTotalSize) {
+                unset($message);
                 break;
             }
+
             array_unshift($newMessages, $message);
             $total += $size;
+            unset($size, $message);
         }
+
         $this->messages = $newMessages;
+        unset($newMessages, $total);
     }
 }
