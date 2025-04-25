@@ -29,14 +29,14 @@ trait ChatExtra
     }
 
     /**
-     * Get only user and assistant messages.
+     * Get only user and assistant messages with content.
      *
      * @return array<ChatMessage>
      */
     public function chatMessages(): array
     {
         return array_filter($this->messages, function (ChatMessage $message) {
-            return $message->role === ChatRole::USER || $message->role === ChatRole::ASSISTANT;
+            return $message->content && ($message->role === ChatRole::USER || $message->role === ChatRole::ASSISTANT);
         });
     }
 
