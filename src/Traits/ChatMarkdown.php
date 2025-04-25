@@ -2,12 +2,17 @@
 
 namespace Lenorix\LaravelAiExtra\Traits;
 
-use League\CommonMark\CommonMarkConverter;
+use League\CommonMark\MarkdownConverter;
+use League\CommonMark\Environment\Environment;
+use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
+use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use MalteKuhr\LaravelGPT\Models\ChatMessage;
 
 trait ChatMarkdown
 {
     use ChatExtra;
+
+
 
     /**
      * Get only user and assistant messages,
@@ -19,7 +24,10 @@ trait ChatMarkdown
      */
     public function chatMessagesHtml(): array
     {
-        $converter = new CommonMarkConverter;
+        $environment = new Environment();
+        $environment->addExtension(new CommonMarkCoreExtension());
+        $environment->addExtension(new GithubFlavoredMarkdownExtension());
+        $converter = new MarkdownConverter($environment);
 
         return array_map(function (ChatMessage $message) use ($converter) {
             if ($message->content === null) {
