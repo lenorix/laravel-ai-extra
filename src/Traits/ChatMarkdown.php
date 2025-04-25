@@ -12,6 +12,8 @@ trait ChatMarkdown
     /**
      * Get only user and assistant messages,
      *  rendering markdown to HTML.
+     * 
+     * See: https://commonmark.thephpleague.com/2.6/security/
      *
      * @return array<ChatMessage>
      */
