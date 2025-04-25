@@ -20,6 +20,10 @@ trait ChatMarkdown
         $converter = new CommonMarkConverter;
 
         return array_map(function (ChatMessage $message) use ($converter) {
+            if ($message->content === null) {
+                return $message;
+            }
+
             $content = $converter->convert($message->content)->getContent();
 
             return new ChatMessage($message->role, content: $content);
