@@ -12,16 +12,16 @@ trait ChatLimits
     /**
      * The maximum size of a message in bytes.
      */
-    protected int $maxMessageSize = 5_000;
+    public int $maxMessageSize = 5_000;
 
     /**
      * The maximum size of all messages in bytes.
      */
-    protected int $maxTotalSize = 110_000;
+    public int $maxTotalSize = 110_000;
 
-    protected int $maxMessages = 200;
+    public int $maxMessages = 200;
 
-    protected function ensureMessagesLimit(): void
+    public function ensureMessagesLimit(): void
     {
         $totalSize = 0;
         $newMessages = [];
