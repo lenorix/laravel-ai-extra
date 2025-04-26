@@ -35,7 +35,7 @@ trait ChatMarkdown
 
             $content = Cache::remember(
                 key: 'markdown-to-html.'.sha1($message->content),
-                ttl: 60 * 60,
+                ttl: 60 * 60, // TODO: make this configurable
                 callback: function () use ($converter, $message) {
                     return $converter
                         ->convert($message->content)
