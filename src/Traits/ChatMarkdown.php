@@ -2,11 +2,14 @@
 
 namespace Lenorix\LaravelAiExtra\Traits;
 
+use Illuminate\Support\Facades\Cache;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use League\CommonMark\MarkdownConverter;
 use MalteKuhr\LaravelGPT\Models\ChatMessage;
+
+use function PHPUnit\Framework\callback;
 
 trait ChatMarkdown
 {
@@ -32,7 +35,15 @@ trait ChatMarkdown
                 return $message;
             }
 
-            $content = $converter->convert($message->content)->getContent();
+            $content = Cache::remember(
+                key: 'markdown-to-html.' . sha1($message->content),
+                ttl: 60 * 60,
+                callback: function () use ($converter, $message) {
+                    return $converter
+                        ->convert($message->content)
+                        ->getContent();
+                }
+            );
 
             return new ChatMessage($message->role, content: $content);
         }, $this->chatMessages());
