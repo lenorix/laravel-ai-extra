@@ -9,8 +9,6 @@ use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use League\CommonMark\MarkdownConverter;
 use MalteKuhr\LaravelGPT\Models\ChatMessage;
 
-use function PHPUnit\Framework\callback;
-
 trait ChatMarkdown
 {
     use ChatExtra;
@@ -36,7 +34,7 @@ trait ChatMarkdown
             }
 
             $content = Cache::remember(
-                key: 'markdown-to-html.' . sha1($message->content),
+                key: 'markdown-to-html.'.sha1($message->content),
                 ttl: 60 * 60,
                 callback: function () use ($converter, $message) {
                     return $converter
