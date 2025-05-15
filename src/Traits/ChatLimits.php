@@ -2,18 +2,18 @@
 
 namespace Lenorix\LaravelAiExtra\Traits;
 
+use MalteKuhr\LaravelGPT\Concerns\HasChat;
+
 /*
  * Methods to control context limits for maltekuhr/laravel-gpt `GPTChat`.
  *
  * This expects the class has a `messages` property.
+ *
+ * @method static addMessage(ChatMessage|string $message) Required from `HasChat` trait used in `GPTChat` class.
+ * @property array<ChatMessage> $messages Required from `HasChat` trait used in `GPTChat` class.
  */
-
-use MalteKuhr\LaravelGPT\Concerns\HasChat;
-
 trait ChatLimits
 {
-    use HasChat;
-
     /**
      * The maximum size of a message in bytes.
      */

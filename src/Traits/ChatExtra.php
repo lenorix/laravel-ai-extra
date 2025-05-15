@@ -2,7 +2,6 @@
 
 namespace Lenorix\LaravelAiExtra\Traits;
 
-use MalteKuhr\LaravelGPT\Concerns\HasChat;
 use MalteKuhr\LaravelGPT\Enums\ChatRole;
 use MalteKuhr\LaravelGPT\Models\ChatMessage;
 
@@ -11,11 +10,12 @@ use MalteKuhr\LaravelGPT\Models\ChatMessage;
  *
  * This expects the class has a `messages` property and an `addMessage` method,
  *  which is the case for `GPTChat` or using the `HasChat` trait.
+ *
+ * @method static addMessage(ChatMessage|string $message) Required from `HasChat` trait used in `GPTChat` class.
+ * @property array<ChatMessage> $messages Required from `HasChat` trait used in `GPTChat` class.
  */
 trait ChatExtra
 {
-    use HasChat;
-
     public function addAssistantMessage(string $message): static
     {
         return $this->addMessage(new ChatMessage(ChatRole::ASSISTANT, content: $message));
@@ -45,7 +45,7 @@ trait ChatExtra
 
     public function clearMessages(): static
     {
-        $this->messages = [];
+        $this->messages = []; // @phpstan-ignore-line It's a property from the `HasChat` trait.
 
         return $this;
     }
