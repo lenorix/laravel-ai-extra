@@ -12,6 +12,7 @@ use MalteKuhr\LaravelGPT\Models\ChatMessage;
  *  which is the case for `GPTChat` or using the `HasChat` trait.
  *
  * @method static addMessage(ChatMessage|string $message) Required from `HasChat` trait used in `GPTChat` class.
+ *
  * @property array<ChatMessage> $messages Required from `HasChat` trait used in `GPTChat` class.
  */
 trait ChatExtra
