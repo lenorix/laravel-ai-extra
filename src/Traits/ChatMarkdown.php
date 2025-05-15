@@ -21,6 +21,7 @@ trait ChatMarkdown
      * See: https://commonmark.thephpleague.com/2.6/security/
      *
      * @return array<ChatMessage>
+     *
      * @throws CommonMarkException
      */
     public function chatMessagesHtml(): array
