@@ -15,23 +15,19 @@ interface PersistentChat
     /**
      * Load chat messages from a persistent storage.
      *
-     * @param int|null $maxLatestMessages Maximum number of latest messages to load.
-     * @return static
+     * @param  int|null  $maxLatestMessages  Maximum number of latest messages to load.
      */
-    public function loadChat(?int $maxLatestMessages=null): static;
+    public function loadChat(?int $maxLatestMessages = null): static;
 
     /**
      * Add a message to the chat, storing it or queuing it to ve stored when calling `saveChat()`.
      *
-     * @param ChatMessage|string $message The message to add.
-     * @return static
+     * @param  ChatMessage|string  $message  The message to add.
      */
     public function addMessage(ChatMessage|string $message): static;
 
     /**
      * Save the chat messages or do nothing if `addMessage()` stored them.
-     *
-     * @return static
      */
     public function saveChat(): static;
 }
