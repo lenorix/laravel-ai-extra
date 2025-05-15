@@ -7,8 +7,13 @@ namespace Lenorix\LaravelAiExtra\Traits;
  *
  * This expects the class has a `messages` property.
  */
+
+use MalteKuhr\LaravelGPT\Concerns\HasChat;
+
 trait ChatLimits
 {
+    use HasChat;
+
     /**
      * The maximum size of a message in bytes.
      */

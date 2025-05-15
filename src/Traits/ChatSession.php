@@ -2,6 +2,8 @@
 
 namespace Lenorix\LaravelAiExtra\Traits;
 
+use MalteKuhr\LaravelGPT\Concerns\HasChat;
+
 /**
  * Methods to save and load chat messages to/from the session.
  *
@@ -9,6 +11,8 @@ namespace Lenorix\LaravelAiExtra\Traits;
  */
 trait ChatSession
 {
+    use HasChat;
+
     protected function getSessionKey(): string
     {
         return 'laravel-ai-chat-'.str_replace('\\', '-', static::class);

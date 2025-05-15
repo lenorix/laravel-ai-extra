@@ -2,6 +2,7 @@
 
 namespace Lenorix\LaravelAiExtra\Traits;
 
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Facades\Blade;
 
 /**
@@ -14,8 +15,9 @@ trait PromptTemplate
     /**
      * Render a prompt file with the given data.
      *
-     * @param  string  $name  The name of the prompt file (without extension).
-     * @param  array  $data  The data to pass to the prompt.
+     * @param string $name The name of the prompt file (without extension).
+     * @param array $data The data to pass to the prompt.
+     * @throws FileNotFoundException
      */
     protected function renderPrompt(string $name, array $data = [], bool $deleteCached = false): string
     {

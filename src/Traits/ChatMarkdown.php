@@ -4,6 +4,7 @@ namespace Lenorix\LaravelAiExtra\Traits;
 
 use Illuminate\Support\Facades\Cache;
 use League\CommonMark\Environment\Environment;
+use League\CommonMark\Exception\CommonMarkException;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use League\CommonMark\MarkdownConverter;
@@ -20,6 +21,7 @@ trait ChatMarkdown
      * See: https://commonmark.thephpleague.com/2.6/security/
      *
      * @return array<ChatMessage>
+     * @throws CommonMarkException
      */
     public function chatMessagesHtml(): array
     {

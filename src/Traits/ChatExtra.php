@@ -2,6 +2,7 @@
 
 namespace Lenorix\LaravelAiExtra\Traits;
 
+use MalteKuhr\LaravelGPT\Concerns\HasChat;
 use MalteKuhr\LaravelGPT\Enums\ChatRole;
 use MalteKuhr\LaravelGPT\Models\ChatMessage;
 
@@ -13,6 +14,8 @@ use MalteKuhr\LaravelGPT\Models\ChatMessage;
  */
 trait ChatExtra
 {
+    use HasChat;
+
     public function addAssistantMessage(string $message): static
     {
         return $this->addMessage(new ChatMessage(ChatRole::ASSISTANT, content: $message));
