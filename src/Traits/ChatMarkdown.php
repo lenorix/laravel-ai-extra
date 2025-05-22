@@ -8,7 +8,7 @@ use League\CommonMark\Exception\CommonMarkException;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use League\CommonMark\MarkdownConverter;
-use MalteKuhr\LaravelGPT\Models\ChatMessage;
+use Lenorix\Ai\Chat\CoreMessage;
 
 trait ChatMarkdown
 {
@@ -20,7 +20,7 @@ trait ChatMarkdown
      *
      * See: https://commonmark.thephpleague.com/2.6/security/
      *
-     * @return array<ChatMessage>
+     * @return array<CoreMessage>
      *
      * @throws CommonMarkException
      */
@@ -31,7 +31,7 @@ trait ChatMarkdown
         $environment->addExtension(new GithubFlavoredMarkdownExtension);
         $converter = new MarkdownConverter($environment);
 
-        return array_map(function (ChatMessage $message) use ($converter) {
+        return array_map(function (CoreMessage $message) use ($converter) {
             if ($message->content === null) {
                 return $message;
             }
@@ -46,7 +46,7 @@ trait ChatMarkdown
                 }
             );
 
-            return new ChatMessage($message->role, content: $content);
+            return new CoreMessage($message->role, content: $content);
         }, $this->chatMessages());
     }
 }
