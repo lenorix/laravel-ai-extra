@@ -4,8 +4,6 @@ namespace Lenorix\LaravelAiExtra\Traits;
 
 use Lenorix\Ai\Chat\CoreMessage;
 use Lenorix\Ai\Chat\CoreMessageRole;
-use MalteKuhr\LaravelGPT\Enums\ChatRole;
-use MalteKuhr\LaravelGPT\Models\ChatMessage;
 
 /**
  * Extra methods for maltekuhr/laravel-gpt `GPTChat`.
