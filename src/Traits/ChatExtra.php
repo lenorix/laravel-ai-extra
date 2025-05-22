@@ -2,6 +2,8 @@
 
 namespace Lenorix\LaravelAiExtra\Traits;
 
+use Lenorix\Ai\Chat\CoreMessage;
+use Lenorix\Ai\Chat\CoreMessageRole;
 use MalteKuhr\LaravelGPT\Enums\ChatRole;
 use MalteKuhr\LaravelGPT\Models\ChatMessage;
 
@@ -11,23 +13,23 @@ use MalteKuhr\LaravelGPT\Models\ChatMessage;
  * This expects the class has a `messages` property and an `addMessage` method,
  *  which is the case for `GPTChat` or using the `HasChat` trait.
  *
- * @method static addMessage(ChatMessage|string $message) Required from `HasChat` trait used in `GPTChat` class.
+ * @method static addMessage(CoreMessage|string $message) Required from `HasChat` trait used in `GPTChat` class.
  *
- * @property array<ChatMessage> $messages Required from `HasChat` trait used in `GPTChat` class.
+ * @property array<CoreMessage> $messages Required from `HasChat` trait used in `GPTChat` class.
  */
 trait ChatExtra
 {
     public function addAssistantMessage(string $message): static
     {
-        return $this->addMessage(new ChatMessage(ChatRole::ASSISTANT, content: $message));
+        return $this->addMessage(new CoreMessage(CoreMessageRole::ASSISTANT, content: $message));
     }
 
     public function addUserMessage(string $message): static
     {
-        return $this->addMessage(new ChatMessage(ChatRole::USER, content: $message));
+        return $this->addMessage(new CoreMessage(CoreMessageRole::USER, content: $message));
     }
 
-    public function popLatestMessage(): ?ChatMessage
+    public function popLatestMessage(): ?CoreMessage
     {
         return array_pop($this->messages);
     }
@@ -35,12 +37,12 @@ trait ChatExtra
     /**
      * Get only user and assistant messages with content.
      *
-     * @return array<ChatMessage>
+     * @return array<CoreMessage>
      */
     public function chatMessages(): array
     {
-        return array_filter($this->messages, function (ChatMessage $message) {
-            return $message->content && ($message->role === ChatRole::USER || $message->role === ChatRole::ASSISTANT);
+        return array_filter($this->messages, function (CoreMessage $message) {
+            return $message->content && ($message->role === CoreMessageRole::USER || $message->role === CoreMessageRole::ASSISTANT);
         });
     }
 
