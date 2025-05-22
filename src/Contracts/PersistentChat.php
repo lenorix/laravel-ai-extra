@@ -2,6 +2,7 @@
 
 namespace Lenorix\LaravelAiExtra\Contracts;
 
+use Lenorix\Ai\Chat\CoreMessage;
 use MalteKuhr\LaravelGPT\Models\ChatMessage;
 
 /**
@@ -22,9 +23,9 @@ interface PersistentChat
     /**
      * Add a message to the chat, storing it or queuing it to ve stored when calling `saveChat()`.
      *
-     * @param  ChatMessage|string  $message  The message to add.
+     * @param  CoreMessage|string  $message  The message to add.
      */
-    public function addMessage(ChatMessage|string $message): static;
+    public function addMessage(CoreMessage|string $message): static;
 
     /**
      * Save the chat messages or do nothing if `addMessage()` stored them.

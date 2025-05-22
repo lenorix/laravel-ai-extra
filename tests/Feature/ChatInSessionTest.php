@@ -6,7 +6,7 @@ it('save and load', function () {
         use Lenorix\LaravelAiExtra\Traits\ChatSession {
             getSessionKey as getSessionKeyFromTrait;
         }
-        use MalteKuhr\LaravelGPT\Concerns\HasChat;
+        use MalteKuhr\LaravelGPT\Concerns\HasChatShim;
 
         public function getSessionKey(): string
         {
@@ -25,7 +25,7 @@ it('save and load', function () {
         use Lenorix\LaravelAiExtra\Traits\ChatSession {
             getSessionKey as getSessionKeyFromTrait;
         }
-        use MalteKuhr\LaravelGPT\Concerns\HasChat;
+        use MalteKuhr\LaravelGPT\Concerns\HasChatShim;
 
         public function getSessionKey(): string
         {
