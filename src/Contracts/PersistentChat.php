@@ -3,7 +3,6 @@
 namespace Lenorix\LaravelAiExtra\Contracts;
 
 use Lenorix\Ai\Chat\CoreMessage;
-use MalteKuhr\LaravelGPT\Models\ChatMessage;
 
 /**
  * Interface for persistent chat functionality.
