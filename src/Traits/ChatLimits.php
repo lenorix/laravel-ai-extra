@@ -2,22 +2,23 @@
 
 namespace Lenorix\LaravelAiExtra\Traits;
 
-use MalteKuhr\LaravelGPT\Concerns\HasChat;
+use Lenorix\Ai\Chat\CoreMessageRole;
+use MalteKuhr\LaravelGPT\Concerns\HasChatShim;
 
 /*
  * Methods to control context limits for maltekuhr/laravel-gpt `GPTChat`.
  *
  * This expects the class has a `messages` property.
  *
- * @method static addMessage(ChatMessage|string $message) Required from `HasChat` trait used in `GPTChat` class.
- * @property array<ChatMessage> $messages Required from `HasChat` trait used in `GPTChat` class.
+ * @method static addMessage(CoreMessage|string $message) Required from `HasChat` trait used in `GPTChat` class.
+ * @property array<CoreMessage> $messages Required from `HasChat` trait used in `GPTChat` class.
  */
 trait ChatLimits
 {
     /**
      * The maximum size of a message in bytes.
      */
-    public int $maxMessageSize = 5_000;
+    public int $maxMessageSize = 25_000;
 
     /**
      * The maximum size of all messages in bytes.
@@ -34,6 +35,13 @@ trait ChatLimits
             $message = array_pop($this->messages);
 
             if (is_string($message->content) && strlen($message->content) > $this->maxMessageSize) {
+                if ($message->role == CoreMessageRole::TOOL) {
+                    do {
+                        $next = array_pop($this->messages);
+                    } while ($message->role == CoreMessageRole::TOOL || ($next->role == CoreMessageRole::ASSISTANT && $next->toolCalls !== null));
+                    // Assistant tools call must be preceded by tools message, if it is removed then
+                    // the assistant request also must be removed.
+                }
                 continue;
             }
 
@@ -50,6 +58,13 @@ trait ChatLimits
             }
 
             if ($totalSize + $size > $this->maxTotalSize) {
+                if ($message->role == CoreMessageRole::TOOL) {
+                    do {
+                        $next = array_pop($this->messages);
+                    } while ($message->role == CoreMessageRole::TOOL || ($next->role == CoreMessageRole::ASSISTANT && $next->toolCalls !== null));
+                    // Assistant tools call must be preceded by tools message, if it is removed then
+                    // the assistant request also must be removed.
+                }
                 continue;
             }
 
