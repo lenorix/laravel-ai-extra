@@ -3,7 +3,6 @@
 namespace Lenorix\LaravelAiExtra\Traits;
 
 use Lenorix\Ai\Chat\CoreMessageRole;
-use MalteKuhr\LaravelGPT\Concerns\HasChatShim;
 
 /*
  * Methods to control context limits for maltekuhr/laravel-gpt `GPTChat`.
@@ -42,6 +41,7 @@ trait ChatLimits
                     // Assistant tools call must be preceded by tools message, if it is removed then
                     // the assistant request also must be removed.
                 }
+
                 continue;
             }
 
@@ -65,6 +65,7 @@ trait ChatLimits
                     // Assistant tools call must be preceded by tools message, if it is removed then
                     // the assistant request also must be removed.
                 }
+
                 continue;
             }
 
